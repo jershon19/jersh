@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jershon | Portfolio</title>
+  <style>
+    :root {
+      --ink: #151515;
+      --muted: #65645f;
+      --paper: #f6f3ec;
+      --panel: #ffffff;
+      --line: #dad4c7;
+      --green: #2f6d59;
+      --coral: #d66a4b;
+      --gold: #c9972f;
+      --blue: #315f8d;
+      --shadow: 0 18px 50px rgba(28, 27, 24, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      overflow: hidden;
+    }
+
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 18px clamp(18px, 5vw, 64px);
+      background: rgba(246, 243, 236, 0.88);
+      border-bottom: 1px solid rgba(218, 212, 199, 0.75);
+      backdrop-filter: blur(16px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      color: #fff;
+      background: var(--ink);
+      border-radius: 8px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: clamp(14px, 3vw, 34px);
+      color: var(--muted);
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    .nav-links a:hover {
+      color: var(--ink);
+    }
+
+    .hero {
+      min-height: 92vh;
+      display: grid;
+      grid-template-columns: minmax(0, 1.06fr) minmax(300px, 0.94fr);
+      align-items: center;
+      gap: clamp(32px, 7vw, 96px);
+      padding: 128px clamp(20px, 6vw, 84px) 56px;
+      position: relative;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(115deg, rgba(47, 109, 89, 0.14), transparent 33%),
+        linear-gradient(290deg, rgba(214, 106, 75, 0.14), transparent 36%);
+      pointer-events: none;
+    }
+
+    .hero-content,
+    .portrait-wrap {
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      color: var(--green);
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 2px;
+      background: var(--green);
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    h1 {
+      max-width: 850px;
+      font-size: clamp(3.2rem, 7vw, 7.4rem);
+      line-height: 0.93;
+      letter-spacing: 0;
+    }
+
+    .intro {
+      max-width: 650px;
+      margin-top: 28px;
+      color: #44413b;
+      font-size: clamp(1.08rem, 1.7vw, 1.28rem);
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 34px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 20px;
+      border: 1px solid var(--ink);
+      border-radius: 8px;
+      font-weight: 800;
+      transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+    }
+
+    .button.primary {
+      color: #fff;
+      background: var(--ink);
+      box-shadow: var(--shadow);
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .portrait {
+      aspect-ratio: 4 / 5;
+      min-height: 520px;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #d8d1c3;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+
+    .portrait img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    .portrait::after {
+      content: "Designer / Developer";
+      position: absolute;
+      left: 24px;
+      right: 24px;
+      bottom: 24px;
+      padding: 14px 16px;
+      color: #fff;
+      background: rgba(21, 21, 21, 0.74);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      font-weight: 800;
+      backdrop-filter: blur(10px);
+    }
+
+    section {
+      padding: 86px clamp(20px, 6vw, 84px);
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 28px;
+      margin-bottom: 34px;
+    }
+
+    h2 {
+      font-size: clamp(2rem, 4vw, 4rem);
+      line-height: 1;
+    }
+
+    .section-head p {
+      max-width: 520px;
+      color: var(--muted);
+    }
+
+    .about {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: clamp(28px, 6vw, 72px);
+      background: #fff;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .stat,
+    .project,
+    .skill {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+
+    .stat {
+      padding: 22px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 2rem;
+      line-height: 1;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .about-copy {
+      color: #403d37;
+      font-size: 1.08rem;
+    }
+
+    .skills-grid,
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .skill,
+    .project {
+      padding: 24px;
+    }
+
+    .skill-icon {
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      margin-bottom: 18px;
+      color: #fff;
+      background: var(--green);
+      border-radius: 8px;
+      font-weight: 900;
+    }
+
+    .skill:nth-child(2) .skill-icon {
+      background: var(--coral);
+    }
+
+    .skill:nth-child(3) .skill-icon {
+      background: var(--blue);
+    }
+
+    h3 {
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+    }
+
+    .skill p,
+    .project p {
+      color: var(--muted);
+    }
+
+    .project {
+      display: flex;
+      min-height: 260px;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .project:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+    }
+
+    .project-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 0 10px;
+      color: #fff;
+      background: var(--ink);
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+
+    .project-number {
+      color: var(--gold);
+      font-size: 2.4rem;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .contact {
+      color: #fff;
+      background: #171717;
+    }
+
+    .contact .section-head p {
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    .contact-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 14px;
+    }
+
+    .contact-link {
+      padding: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 8px;
+      color: rgba(255, 255, 255, 0.86);
+      font-weight: 800;
+    }
+
+    .contact-link:hover {
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 24px clamp(20px, 6vw, 84px);
+      color: rgba(255, 255, 255, 0.64);
+      background: #171717;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    @media (max-width: 900px) {
+      .nav {
+        position: absolute;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero,
+      .about {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 108px;
+      }
+
+      .portrait {
+        min-height: 420px;
+      }
+
+      .section-head {
+        align-items: start;
+        flex-direction: column;
+      }
+
+      .skills-grid,
+      .projects-grid,
+      .contact-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .hero,
+      section {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      h1 {
+        font-size: 3.25rem;
+      }
+
+      .actions {
+        flex-direction: column;
+      }
+
+      .button {
+        width: 100%;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      footer {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <nav class="nav" aria-label="Main navigation">
+      <a class="brand" href="#top" aria-label="Jershon home">
+        <span class="brand-mark">J</span>
+        <span>Jershon</span>
+      </a>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+
+    <header class="hero" id="top">
+      <div class="hero-content">
+        <span class="eyebrow">Portfolio</span>
+        <h1>Hi, I’m Jershon. I build clean digital experiences.</h1>
+        <p class="intro">
+          A focused, adaptable creator interested in web design, development, and practical
+          ideas that make everyday work feel simpler, faster, and better.
+        </p>
+        <div class="actions">
+          <a class="button primary" href="#projects">View Projects</a>
+          <a class="button" href="#contact">Contact Me</a>
+        </div>
+      </div>
+      <div class="portrait-wrap">
+        <div class="portrait">
+          <img src="Jers ID.jpg" alt="Portrait of Jershon" />
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="about" id="about">
+        <div>
+          <span class="eyebrow">About</span>
+          <h2>Driven by simple design and useful results.</h2>
+        </div>
+        <div class="about-copy">
+          <p>
+            I enjoy turning ideas into polished web pages and practical interfaces. My work is
+            guided by clear structure, readable code, and thoughtful details that help people
+            understand what to do next.
+          </p>
+          <br />
+          <div class="stats" aria-label="Portfolio highlights">
+            <div class="stat">
+              <strong>10+</strong>
+              <span>Practice builds</span>
+            </div>
+            <div class="stat">
+              <strong>3</strong>
+              <span>Core focus areas</span>
+            </div>
+            <div class="stat">
+              <strong>100%</strong>
+              <span>Growth mindset</span>
+            </div>
+            <div class="stat">
+              <strong>2026</strong>
+              <span>Portfolio launch</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="skills">
+        <div class="section-head">
+          <h2>Skills</h2>
+          <p>Areas I can shape into real work, from layout and styling to basic interaction and project presentation.</p>
+        </div>
+        <div class="skills-grid">
+          <article class="skill">
+            <div class="skill-icon">UI</div>
+            <h3>Web Design</h3>
+            <p>Responsive layouts, visual hierarchy, color systems, and pages that feel easy to scan.</p>
+          </article>
+          <article class="skill">
+            <div class="skill-icon">FE</div>
+            <h3>Frontend Development</h3>
+            <p>HTML, CSS, JavaScript fundamentals, accessible markup, and clean component structure.</p>
+          </article>
+          <article class="skill">
+            <div class="skill-icon">PR</div>
+            <h3>Project Thinking</h3>
+            <p>Breaking ideas into features, organizing content, and polishing the details that matter.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="projects">
+        <div class="section-head">
+          <h2>Selected Projects</h2>
+          <p>Replace these samples with your real school, personal, or client projects as your portfolio grows.</p>
+        </div>
+        <div class="projects-grid">
+          <article class="project">
+            <div>
+              <div class="project-top">
+                <span class="tag">Website</span>
+                <span class="project-number">01</span>
+              </div>
+              <h3>Personal Portfolio</h3>
+              <p>A responsive one-page site that introduces your profile, work, skills, and contact details.</p>
+            </div>
+          </article>
+          <article class="project">
+            <div>
+              <div class="project-top">
+                <span class="tag">Design</span>
+                <span class="project-number">02</span>
+              </div>
+              <h3>Landing Page Concept</h3>
+              <p>A polished product page concept with strong visual rhythm and clear calls to action.</p>
+            </div>
+          </article>
+          <article class="project">
+            <div>
+              <div class="project-top">
+                <span class="tag">App UI</span>
+                <span class="project-number">03</span>
+              </div>
+              <h3>Dashboard Mockup</h3>
+              <p>A compact interface for viewing useful information quickly with organized sections.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="contact" id="contact">
+        <div class="section-head">
+          <h2>Let’s Work Together</h2>
+          <p>Update the links below with your real email, social profile, and resume when you are ready.</p>
+        </div>
+        <div class="contact-row">
+          <a class="contact-link" href="mailto:jershon@example.com">jershon@example.com</a>
+          <a class="contact-link" href="#" aria-label="LinkedIn profile">LinkedIn</a>
+          <a class="contact-link" href="#" aria-label="GitHub profile">GitHub</a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>© 2026 Jershon. All rights reserved.</span>
+      <span>Built with HTML and CSS.</span>
+    </footer>
+  </div>
+</body>
+</html>
